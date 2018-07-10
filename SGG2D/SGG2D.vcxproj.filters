@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{73e9b177-542f-42dd-8eef-132756a8c953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{3f8c4f41-47ba-4b41-84c3-4d7a180a3402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Interface">
+      <UniqueIdentifier>{fa0bbcd9-5db7-4072-8785-e96318a41b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\SFML">
+      <UniqueIdentifier>{0a708d4a-0a4a-473f-a785-e5c051202a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Interface\Header Files">
+      <UniqueIdentifier>{ba0e10b0-608b-44e8-8498-2fbf10464a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Interface\Source Files">
+      <UniqueIdentifier>{a209b9f4-7c97-4076-b7ca-7f31230c422c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\SFML\Header Files">
+      <UniqueIdentifier>{617ac7e7-f113-412d-b087-18eba2f463b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\SFML\Source Files">
+      <UniqueIdentifier>{a9c795c3-15ee-4798-8002-574bec04b3a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SGShaderHandler2DSFML.cpp">
+      <Filter>Rendering\SFML\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGShapeManagerSFML.cpp">
+      <Filter>Rendering\SFML\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGTextManager2DSFML.cpp">
+      <Filter>Rendering\SFML\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGTextureManager2DSFML.cpp">
+      <Filter>Rendering\SFML\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGRendererSFML.cpp">
+      <Filter>Rendering\SFML\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGRenderer2D.cpp">
+      <Filter>Rendering\Interface\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGShaderHandler2D.cpp">
+      <Filter>Rendering\Interface\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGShapeManager.cpp">
+      <Filter>Rendering\Interface\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGTextManager2D.cpp">
+      <Filter>Rendering\Interface\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGTextureManager2D.cpp">
+      <Filter>Rendering\Interface\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SGRendererSFML.h">
+      <Filter>Rendering\SFML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGShaderHandler2DSFML.h">
+      <Filter>Rendering\SFML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGShapeManagerSFML.h">
+      <Filter>Rendering\SFML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGTextManager2DSFML.h">
+      <Filter>Rendering\SFML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGTextureManager2DSFML.h">
+      <Filter>Rendering\SFML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGTextureManager2D.h">
+      <Filter>Rendering\Interface\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGTextManager2D.h">
+      <Filter>Rendering\Interface\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGShapeManager.h">
+      <Filter>Rendering\Interface\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGShaderHandler2D.h">
+      <Filter>Rendering\Interface\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGRenderer2D.h">
+      <Filter>Rendering\Interface\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGG2DUtility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
