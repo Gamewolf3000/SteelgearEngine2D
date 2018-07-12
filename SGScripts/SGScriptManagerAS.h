@@ -58,88 +58,137 @@ namespace SG
 			std::cout << message->message << "\n";
 		}
 
+		template<typename T>
+		void SetParameter(T* parameter, int nr)
+		{
+			ctx->SetArgObject(nr, parameter);
+		}
+
+		// This should be possible to get down to just one function using std::is_pod and std::enable_if_t
+		template<>
+		void SetParameter<int16_t>(int16_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint16_t>(uint16_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<int32_t>(int32_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint32_t>(uint32_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<int64_t>(int64_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint64_t>(uint64_t* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<float>(float* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<double>(double* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<char>(char* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<unsigned char>(unsigned char* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+		template<>
+		void SetParameter<bool>(bool* parameter, int nr)
+		{
+			ctx->SetArgAddress(nr, parameter);
+		}
+
+		template<typename T>
+		void SetParameter(T parameter, int nr)
+		{
+			ctx->SetArgObject(nr, &parameter);
+		}
+
+		template<>
+		void SetParameter<int16_t>(int16_t parameter, int nr)
+		{
+			ctx->SetArgWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint16_t>(uint16_t parameter, int nr)
+		{
+			ctx->SetArgWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<int32_t>(int32_t parameter, int nr)
+		{
+			ctx->SetArgDWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint32_t>(uint32_t parameter, int nr)
+		{
+			ctx->SetArgDWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<int64_t>(int64_t parameter, int nr)
+		{
+			ctx->SetArgQWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<uint64_t>(uint64_t parameter, int nr)
+		{
+			ctx->SetArgQWord(nr, parameter);
+		}
+		template<>
+		void SetParameter<float>(float parameter, int nr)
+		{
+			ctx->SetArgFloat(nr, parameter);
+		}
+		template<>
+		void SetParameter<double>(double parameter, int nr)
+		{
+			ctx->SetArgDouble(nr, parameter);
+		}
+		template<>
+		void SetParameter<char>(char parameter, int nr)
+		{
+			ctx->SetArgByte(nr, parameter);
+		}
+		template<>
+		void SetParameter<unsigned char>(unsigned char parameter, int nr)
+		{
+			ctx->SetArgByte(nr, parameter);
+		}
+		template<>
+		void SetParameter<bool>(bool parameter, int nr)
+		{
+			ctx->SetArgByte(nr, parameter);
+		}
+
 	public:
 
-		SGScriptManagerAS()
-		{
-			engine = asCreateScriptEngine();
-			int errorCode = 0;
+		SGScriptManagerAS();
+		~SGScriptManagerAS();
 
-			// Set the message callback to receive information on errors in human readable form.
-			errorCode = engine->SetMessageCallback(asFUNCTION(MessageCallback), 0, asCALL_CDECL);
-			_ASSERT(errorCode >= 0);
-
-			RegisterStdString(engine);
-
-			ctx = engine->CreateContext();
-		}
-
-		~SGScriptManagerAS()
-		{
-			ctx->Release();
-			engine->ShutDownAndRelease();
-		}
-
-		SGScriptHandle LoadScript(const char* file)
-		{
-			BuiltScript temp;
-			std::string stringModule = std::string("Module" + std::to_string(scripts.size()));
-			temp.builder.StartNewModule(engine, stringModule.c_str());
-
-			int error = temp.builder.AddSectionFromFile(file);
-			if (error < 0)
-			{
-				// The builder wasn't able to load the file. Maybe the file
-				// has been removed, or the wrong name was given, or some
-				// preprocessing commands are incorrectly written.
-				throw("Error when trying to load file");
-			}
-
-			error = temp.builder.BuildModule();
-			if (error < 0)
-			{
-				// An error occurred. Instruct the script writer to fix the 
-				// compilation errors that were listed in the output stream.
-				throw("Error when trying to build file");
-			}
-
-			temp.mod = engine->GetModule(stringModule.c_str());
-			scripts.push_back(temp);
-
-			SGScriptHandle toReturn;
-			toReturn.loadedScript = scripts.size() - 1;
-			return toReturn;
-		}
-
-
-		void ExecuteScript(SGScriptHandle& script, const char* functionDeclaration)
-		{
-			if (script.loadedScript == -1)
-				throw("Invalid ScriptHandle");
-
-			asIScriptFunction *func = scripts[script.loadedScript].mod->GetFunctionByDecl(functionDeclaration);
-			if (func == 0)
-			{
-				// The function couldn't be found. Instruct the script writer
-				// to include the expected function in the script.
-				throw("Error when trying to find the function declaration");
-			}
-
-			//Prepare our context, and then execute
-			ctx->Prepare(func);
-			int error = ctx->Execute();
-			if (error != asEXECUTION_FINISHED)
-			{
-				// The execution didn't complete as expected. Determine what happened.
-				if (error == asEXECUTION_EXCEPTION)
-				{
-					// An exception occurred, let the script writer know what happened so it can be corrected.
-					throw((std::string("An exception ") + std::string(ctx->GetExceptionString()) + std::string(" has occurred!")).c_str());
-				}
-
-				throw("An error occured while executing the script");
-			}
-		}
+		SGScriptHandle LoadScript(const char* file);
 
 		template <typename ReturnType, typename... Args>
 		inline void ExposeFunction(ReturnType(ptr)(Args...), const char* declaration)
@@ -184,6 +233,80 @@ namespace SG
 			this->engine->RegisterObjectMethod(className, functionDeclaration, p, asCALL_THISCALL);
 		}
 
+		template <class... Args>
+		void for_each_argument(Args&&... args) {
+			int i = 0;
+			int _[] = { (SetParameter(std::forward<Args>(args), i++),0)... };
+		}
+
+		//template <typename... Args>
+		//inline void SetParameters(Args... parameters)
+		//{
+		//	for_each_argument(parameters...);
+		//}
+
+		template <typename... Args>
+		void ExecuteScript(SGScriptHandle& script, const char* functionDeclaration, Args&&... parameters)
+		{
+			if (script.loadedScript == -1)
+				throw("Invalid ScriptHandle");
+
+			asIScriptFunction *func = scripts[script.loadedScript].mod->GetFunctionByDecl(functionDeclaration);
+			if (func == 0)
+			{
+				// The function couldn't be found. Instruct the script writer
+				// to include the expected function in the script.
+				throw("Error when trying to find the function declaration");
+			}
+
+			//Prepare our context
+			ctx->Prepare(func);
+
+			for_each_argument(parameters...);
+
+			int error = ctx->Execute();
+			if (error != asEXECUTION_FINISHED)
+			{
+				// The execution didn't complete as expected. Determine what happened.
+				if (error == asEXECUTION_EXCEPTION)
+				{
+					// An exception occurred, let the script writer know what happened so it can be corrected.
+					throw((std::string("An exception ") + std::string(ctx->GetExceptionString()) + std::string(" has occurred!")).c_str());
+				}
+
+				throw("An error occured while executing the script");
+			}
+		}
+
+		template <>
+		void ExecuteScript<>(SGScriptHandle& script, const char* functionDeclaration)
+		{
+			if (script.loadedScript == -1)
+				throw("Invalid ScriptHandle");
+
+			asIScriptFunction *func = scripts[script.loadedScript].mod->GetFunctionByDecl(functionDeclaration);
+			if (func == 0)
+			{
+				// The function couldn't be found. Instruct the script writer
+				// to include the expected function in the script.
+				throw("Error when trying to find the function declaration");
+			}
+
+			//Prepare our context
+			ctx->Prepare(func);
+			int error = ctx->Execute();
+			if (error != asEXECUTION_FINISHED)
+			{
+				// The execution didn't complete as expected. Determine what happened.
+				if (error == asEXECUTION_EXCEPTION)
+				{
+					// An exception occurred, let the script writer know what happened so it can be corrected.
+					throw((std::string("An exception ") + std::string(ctx->GetExceptionString()) + std::string(" has occurred!")).c_str());
+				}
+
+				throw("An error occured while executing the script");
+			}
+		}
 
 	};
 

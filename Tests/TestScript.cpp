@@ -54,9 +54,12 @@ SG::TestScript::TestScript(SG::SGEngine2D * toUse) : TestBase(toUse)
 	cmdBuffer->SetGraphicsJob(displayJob);
 
 	std::string scriptString;
+	int scriptInt = 0;
+	int scriptInt2 = 20;
 	engine->Script()->ExposeObject<std::string>("string toSet", &scriptString);
 	script = engine->Script()->LoadScript("TestScript.as");
 	engine->Script()->ExecuteScript(script, "void GetText()");
+	engine->Script()->ExecuteScript(script, "void SetText(int &out, string &out, int &in)", &scriptInt, &scriptString, &scriptInt2);
 
 	std::wstring wide(scriptString.length(), L' '); // Make room for characters
 	std::copy(scriptString.begin(), scriptString.end(), wide.begin()); // Copy string to wstring.

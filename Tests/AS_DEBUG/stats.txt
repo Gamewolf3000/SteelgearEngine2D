@@ -1,10 +1,14 @@
 
 Total count
 PshGPtr    : 1
-RET        : 1
-CALLSYS    : 1
-SUSPEND    : 2
-PGA        : 1
+RET        : 2
+PshVPtr    : 3
+PopRPtr    : 2
+CALLSYS    : 2
+SUSPEND    : 5
+WRTV4      : 1
+RDR4       : 1
+PGA        : 2
 
 Never executed
 PopPtr    
@@ -53,7 +57,6 @@ BSRL
 BSRA      
 COPY      
 PshC8     
-PshVPtr   
 RDSPtr    
 CMPd      
 CMPu      
@@ -63,7 +66,6 @@ CMPIi
 CMPIf     
 CMPIu     
 JMPP      
-PopRPtr   
 PshRPtr   
 STR       
 CALLBND   
@@ -93,11 +95,9 @@ CpyRtoV8
 CpyGtoV4  
 WRTV1     
 WRTV2     
-WRTV4     
 WRTV8     
 RDR1      
 RDR2      
-RDR4      
 RDR8      
 LDG       
 LDV       
@@ -206,8 +206,17 @@ Thiscall1
 
 Sequences
 PshGPtr   , CALLSYS    : 1
-CALLSYS   , SUSPEND    : 1
-SUSPEND   , RET        : 1
-SUSPEND   , PGA        : 1
+RET       , SUSPEND    : 1
+PshVPtr   , PopRPtr    : 2
+PshVPtr   , CALLSYS    : 1
+PopRPtr   , WRTV4      : 1
+PopRPtr   , RDR4       : 1
+CALLSYS   , SUSPEND    : 2
+SUSPEND   , RET        : 2
+SUSPEND   , PshVPtr    : 1
+SUSPEND   , PGA        : 2
+WRTV4     , SUSPEND    : 1
+RDR4      , PshVPtr    : 1
 PGA       , PshGPtr    : 1
+PGA       , PshVPtr    : 1
 LABEL     , SUSPEND    : 1
