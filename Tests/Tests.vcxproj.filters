@@ -24,6 +24,9 @@
     <ClCompile Include="TestSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestScript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestBase.h">
@@ -35,5 +38,13 @@
     <ClInclude Include="TestSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestScript.as">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

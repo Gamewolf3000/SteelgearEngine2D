@@ -6,12 +6,14 @@ SG::SGEngine2D::SGEngine2D(SGSettings2D settings)
 {
 	graphics = new SGRendererSFML(settings.graphicsSettings, &eventManager);
 	transformManager = new SGTransformManager2D(10, 10, &eventManager);
+	scriptManager = new SGScriptManagerAS();
 }
 
 SG::SGEngine2D::~SGEngine2D()
 {
 	graphics->WaitForThread();
 	delete graphics;
+	delete scriptManager;
 	delete transformManager;
 	DebugMessageHandler::DestroyInstance();
 }

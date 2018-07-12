@@ -3,15 +3,18 @@
 #include "../../SGG2D/SGRenderer2D.h"
 #include "../../SG2DUtility/Headers/SGScene2D.h"
 #include "SGTransformManager2D.h"
+#include "../SGScripts/SGScriptManagerAS.h"
 
 namespace SG
 {
+
 	class SGEngine2D
 	{
 	private:
 		EventManager<BackEndEvent> eventManager;
 
 		SGRenderer2D* graphics;
+		SGScriptManagerAS* scriptManager;
 
 		SGTransformManager2D* transformManager;
 
@@ -22,6 +25,11 @@ namespace SG
 		inline SG::SGRenderer2D * Graphics()
 		{
 			return graphics;
+		}
+
+		inline SG::SGScriptManagerAS* Script()
+		{
+			return scriptManager;
 		}
 
 		inline SG::SGTransformManager2D * Transform()

@@ -4,6 +4,7 @@
 #include "SGEngine2D.h"
 #include "TestBasic.h"
 #include "TestSpawner.h"
+#include "TestScript.h"
 
 int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -16,10 +17,11 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 
 	unsigned int nrOfFrames = 0;
 	std::vector<SG::TestBase*> tests;
-	int activeTest = 1;
+	int activeTest = 2;
 
 	tests.push_back(new SG::TestBasic(&engine));
 	tests.push_back(new SG::TestSpawner(&engine));
+	tests.push_back(new SG::TestScript(&engine));
 
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
@@ -39,8 +41,6 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 	{
 		delete test;
 	}
-
-	return 0;
 
 	return 0;
 }

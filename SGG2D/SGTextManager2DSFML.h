@@ -12,15 +12,15 @@ namespace SG
 	struct SGTextSFML
 	{
 		sf::Text text;
+		unsigned int textProperties = 0;
 		bool active = false;
-		SG::SGGuid identifier;
 		float xOffset = 0.0f;
 		float yOffset = 0.0f;
 		float rotation = 0.0f;
 
 		bool operator==(const SGTextSFML& other) const
 		{
-			return identifier == other.identifier;
+			return false;
 		}
 	};
 

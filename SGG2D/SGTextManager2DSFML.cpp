@@ -59,35 +59,28 @@ void SG::SGTextManager2DSFML::LoadFont(std::string filepath, SG::SGGuid identifi
 void SG::SGTextManager2DSFML::CreateText(SGEntity2DHandle& ent, SG::SGGuid font, std::wstring text, unsigned int size, uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, unsigned int properties)
 {
 	SGTextSFML temp;
-	temp.identifier = font;
-	int index = objects.Find(temp);
 
-	if (index != -1)
+	temp.text.setFont(fonts[font]);
+	temp.text.setString(text);
+	temp.text.setFillColor(sf::Color(red, green, blue, alpha));
+	temp.text.setCharacterSize(size);
+
+	if (properties != 0)
 	{
-		AddComponentToEntity(ent, index);
-	}
-	else
-	{
-		temp.text.setFont(fonts[font]);
-		temp.text.setString(text);
-		temp.text.setFillColor(sf::Color(red, green, blue, alpha));
-		temp.text.setCharacterSize(size);
+		temp.textProperties = properties;
+		int sfmlProp = 0;
+		sfmlProp = properties & SG::TextProperties::TEXT_BOLD ? sfmlProp | sf::Text::Bold : sfmlProp;
+		sfmlProp = properties & SG::TextProperties::TEXT_ITALIC ? sfmlProp | sf::Text::Italic : sfmlProp;
+		sfmlProp = properties & SG::TextProperties::TEXT_UNDERLINED ? sfmlProp | sf::Text::Underlined : sfmlProp;
+		if (properties & SG::TextProperties::TEXT_CENTERED)
+			temp.text.setOrigin(temp.text.getLocalBounds().left + temp.text.getLocalBounds().width / 2.0f, temp.text.getLocalBounds().top + temp.text.getLocalBounds().height / 2.0f);
 
-		if (properties != 0)
-		{
-			int sfmlProp = 0;
-			sfmlProp = properties & SG::TextProperties::TEXT_BOLD ? sfmlProp | sf::Text::Bold : sfmlProp;
-			sfmlProp = properties & SG::TextProperties::TEXT_ITALIC ? sfmlProp | sf::Text::Italic : sfmlProp;
-			sfmlProp = properties & SG::TextProperties::TEXT_UNDERLINED ? sfmlProp | sf::Text::Underlined : sfmlProp;
-			if (properties & SG::TextProperties::TEXT_CENTERED)
-				temp.text.setOrigin(temp.text.getLocalBounds().left + temp.text.getLocalBounds().width / 2.0f, temp.text.getLocalBounds().top + temp.text.getLocalBounds().height / 2.0f);
-
-			temp.text.setStyle(sfmlProp);
-		}	
+		temp.text.setStyle(sfmlProp);
+	}	
 	
-		index = objects.AddToBack(temp);
-		AddComponentToEntity(ent, index);
-	}
+	int index = objects.AddToBack(temp);
+	AddComponentToEntity(ent, index);
+	
 }
 
 void SG::SGTextManager2DSFML::SetOffset(SGEntity2DHandle& ent, float xOffset, float yOffset)
@@ -120,7 +113,11 @@ void SG::SGTextManager2DSFML::SetText(SGEntity2DHandle& ent, std::wstring text)
 
 	if (temp->components[int(componentType)] != -1)
 	{
-		objects[temp->components[int(componentType)]].text.setString(text);
+		auto& object = objects[temp->components[int(componentType)]];
+		object.text.setString(text);
+
+		if(object.textProperties & SG::TextProperties::TEXT_CENTERED)
+			object.text.setOrigin(object.text.getLocalBounds().left + object.text.getLocalBounds().width / 2.0f, object.text.getLocalBounds().top + object.text.getLocalBounds().height / 2.0f);
 	}
 }
 
