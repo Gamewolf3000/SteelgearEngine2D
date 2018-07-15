@@ -53,6 +53,27 @@ void SG::SGShapeManagerSFML::CreateCircleShape(SGEntity2DHandle& ent, float circ
 	this->AddComponentToEntity(ent, this->objects.Add(shape));
 }
 
+SG::SGRect SG::SGShapeManagerSFML::GetShapeRect(SGEntity2DHandle& ent)
+{
+	SGEntity2D* temp = nullptr;
+	eventHandler->TriggerEvent(SG::BackEndEvent::GET_ENTITY, &temp, &ent);
+
+	if (temp->components[int(componentType)] != -1)
+	{
+		auto shapeRect = objects[temp->components[int(componentType)]]->getLocalBounds();
+		SGRect toReturn;
+
+		toReturn.leftMost = shapeRect.left + temp->xPos;
+		toReturn.topMost = shapeRect.top + temp->yPos;
+		toReturn.width = shapeRect.width;
+		toReturn.height = shapeRect.height;
+
+		return toReturn;
+	}
+
+	throw "Shape not found when requesting rect";
+}
+
 void SG::SGShapeManagerSFML::Remove(SGEntity2DHandle* ent)
 {
 	SGEntity2D* temp = nullptr;

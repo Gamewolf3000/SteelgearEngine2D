@@ -28,8 +28,9 @@ namespace SG
 		void ClearRenderTarget(const SGColour& clearColour) override;
 		void RenderScene(const SGSceneEntities& sceneEntities, const SGCamera2D& camera, const SGViewPort2D& viewPort) override;
 		void Display() override;
-		uint8_t* GetRenderTargetData();
-		void SetRenderTargetData(uint8_t* data);
+		uint8_t* GetRenderTargetData() override;
+		void SetRenderTargetData(uint8_t* data) override;
+		SGRect GetWindowRect() override;
 
 		SGMatrix4x4 GetProjectionMatrix(SGCamera2D& camera) override;
 	};

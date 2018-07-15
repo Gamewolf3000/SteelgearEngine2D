@@ -6,6 +6,17 @@
 
 namespace SG
 {
+	struct SGTextSettings
+	{
+		SG::SGGuid font;
+		std::wstring text = L"";
+		unsigned int size = 10;
+		uint8_t red = 0;
+		uint8_t green = 0;
+		uint8_t blue = 0;
+		uint8_t alpha = 255;
+		unsigned int properties = 0;
+	};
 
 	enum TextProperties
 	{
@@ -33,6 +44,7 @@ namespace SG
 
 		virtual void LoadFont(std::string filepath, SG::SGGuid identifier) = 0;
 		virtual void CreateText(SGEntity2DHandle& ent, SG::SGGuid font, std::wstring text = L"", unsigned int size = 10, uint8_t red = 0, uint8_t green = 0, uint8_t blue = 0, uint8_t alpha = 255, unsigned int properties = 0) = 0;
+		virtual void CreateText(SGEntity2DHandle& ent, SG::SGTextSettings& textSettings) = 0;
 
 		virtual void SetOffset(SGEntity2DHandle& ent, float xOffset, float yOffset) = 0;
 		virtual void SetRotation(SGEntity2DHandle& ent, float rotation) = 0;

@@ -5,6 +5,8 @@
 #include "TestBasic.h"
 #include "TestSpawner.h"
 #include "TestScript.h"
+#include "TestInput.h"
+#include "TestGuiElement.h"
 
 int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -17,11 +19,13 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 
 	unsigned int nrOfFrames = 0;
 	std::vector<SG::TestBase*> tests;
-	int activeTest = 2;
+	int activeTest = 3;
 
 	tests.push_back(new SG::TestBasic(&engine));
 	tests.push_back(new SG::TestSpawner(&engine));
 	tests.push_back(new SG::TestScript(&engine));
+	tests.push_back(new SG::TestInput(&engine));
+	tests.push_back(new SG::TestGuiElement(&engine));
 
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{

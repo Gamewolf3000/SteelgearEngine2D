@@ -99,7 +99,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;SGInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,7 +120,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>..\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;SGInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;SGInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -169,11 +169,12 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>..\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SGG2D.lib;SG2DUtility.lib;SGScripts.lib;SGInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\SGEngine2D.h" />
+    <ClInclude Include="Headers\SGGuiElement.h" />
     <ClInclude Include="Headers\SGTransformManager2D.h" />
   </ItemGroup>
   <ItemGroup>

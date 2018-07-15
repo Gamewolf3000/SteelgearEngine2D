@@ -31,5 +31,7 @@ namespace SG
 		virtual void CreateRectangleShape(SGEntity2DHandle& ent, float rectWidth, float rectHeight) = 0;
 		virtual void CreateCircleShape(SGEntity2DHandle& ent, float circleRadius, unsigned int nrOfPoints) = 0;
 
+		virtual SGRect GetShapeRect(SGEntity2DHandle& ent) = 0;
+
 	};
 }

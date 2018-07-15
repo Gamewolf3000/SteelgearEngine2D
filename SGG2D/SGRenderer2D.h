@@ -147,6 +147,7 @@ namespace SG
 		virtual void Display() = 0;
 		virtual uint8_t* GetRenderTargetData() = 0;
 		virtual void SetRenderTargetData(uint8_t* data) = 0;
+		virtual SGRect GetWindowRect() = 0;
 
 		GraphicsJob CreateClearRenderTargetJob(SGGuid identifier, const SGColour& clearColour);
 		GraphicsJob CreateRenderSceneJob(SGGuid identifier, SGScene2D& scene, const SGCamera2D& camera, const SGViewPort2D& viewPort);

@@ -21,4 +21,36 @@ namespace SG
 	{
 		float elements[4];
 	};
+
+	struct SGPoint
+	{
+		float xPos;
+		float yPos;
+	};
+
+	struct SGRect
+	{
+		float leftMost;
+		float topMost;
+		float width;
+		float height;
+
+		bool Overlaps(const SGRect& other)
+		{
+			if (this->leftMost <= other.leftMost + other.width && this->leftMost + this->width >= other.leftMost)
+				if (this->topMost <= other.topMost + other.height && this->topMost + this->height >= other.topMost)
+					return true;
+
+			return false;
+		}
+
+		bool Overlaps(const SGPoint& point)
+		{
+			if (this->leftMost <= point.xPos && this->leftMost + this->width >= point.xPos)
+				if (this->topMost <= point.yPos && this->topMost + this->height >= point.yPos)
+					return true;
+
+			return false;
+		}
+	};
 }

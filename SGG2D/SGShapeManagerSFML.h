@@ -18,6 +18,8 @@ namespace SG
 		void CreateRectangleShape(SGEntity2DHandle& ent, float rectWidth, float rectHeight) override;
 		void CreateCircleShape(SGEntity2DHandle& ent, float circleRadius, unsigned int nrOfPoints) override;
 
+		SGRect GetShapeRect(SGEntity2DHandle& ent) override;
+
 		virtual void Remove(SGEntity2DHandle* ent) override;
 
 		inline sf::Shape* GetShape(int index)

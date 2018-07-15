@@ -27,6 +27,12 @@
     <ClCompile Include="TestScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestGuiElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestBase.h">
@@ -41,9 +47,18 @@
     <ClInclude Include="TestScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestGuiElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestScript.as">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="TestGuiScript.as">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

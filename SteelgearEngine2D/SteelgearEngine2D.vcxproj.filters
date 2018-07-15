@@ -21,6 +21,9 @@
     <ClInclude Include="Headers\SGTransformManager2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\SGGuiElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\SGTransformManager2D.cpp">

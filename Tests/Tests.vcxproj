@@ -161,16 +161,21 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestBasic.cpp" />
+    <ClCompile Include="TestGuiElement.cpp" />
+    <ClCompile Include="TestInput.cpp" />
     <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestBase.h" />
     <ClInclude Include="TestBasic.h" />
+    <ClInclude Include="TestGuiElement.h" />
+    <ClInclude Include="TestInput.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestSpawner.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestGuiScript.as" />
     <None Include="TestScript.as" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

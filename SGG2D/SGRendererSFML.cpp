@@ -161,6 +161,16 @@ void SG::SGRendererSFML::SetRenderTargetData(uint8_t * data)
 {
 }
 
+SG::SGRect SG::SGRendererSFML::GetWindowRect()
+{
+	SGRect toReturn;
+	toReturn.leftMost = window->getPosition().x;
+	toReturn.topMost = window->getPosition().y;
+	toReturn.width = window->getSize().x;
+	toReturn.height = window->getSize().y;
+	return toReturn;
+}
+
 SG::SGMatrix4x4 SG::SGRendererSFML::GetProjectionMatrix(SGCamera2D & camera)
 {
 	SGMatrix4x4 temp;

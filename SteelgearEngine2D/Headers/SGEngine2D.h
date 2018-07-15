@@ -4,10 +4,11 @@
 #include "../../SG2DUtility/Headers/SGScene2D.h"
 #include "SGTransformManager2D.h"
 #include "../SGScripts/SGScriptManagerAS.h"
+#include "SGGuiElement.h"
+#include "../SGInput/SGInputHandler.h"
 
 namespace SG
 {
-
 	class SGEngine2D
 	{
 	private:
@@ -15,7 +16,7 @@ namespace SG
 
 		SGRenderer2D* graphics;
 		SGScriptManagerAS* scriptManager;
-
+		SGInputHandler* inputHandler;
 		SGTransformManager2D* transformManager;
 
 	public:
@@ -32,6 +33,11 @@ namespace SG
 			return scriptManager;
 		}
 
+		inline SG::SGInputHandler* Input()
+		{
+			return inputHandler;
+		}
+
 		inline SG::SGTransformManager2D * Transform()
 		{
 			return transformManager;
@@ -39,6 +45,8 @@ namespace SG
 
 		SGScene2D* CreateScene(unsigned int startNrOfEntities, unsigned int entitiesExpandAmount, SGGuid sceneIdentifier);
 		void DestroyScene(SGScene2D* scene);
+
+		SGGuiElement CreateGuiElement(SGScene2D* sceneToAddTo, SGGuiSettings& elementSettings);
 
 	};
 }

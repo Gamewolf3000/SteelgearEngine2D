@@ -83,6 +83,33 @@ void SG::SGTextManager2DSFML::CreateText(SGEntity2DHandle& ent, SG::SGGuid font,
 	
 }
 
+void SG::SGTextManager2DSFML::CreateText(SGEntity2DHandle& ent, SG::SGTextSettings& textSettings)
+{
+	SGTextSFML temp;
+
+	temp.text.setFont(fonts[textSettings.font]);
+	temp.text.setString(textSettings.text);
+	temp.text.setFillColor(sf::Color(textSettings.red, textSettings.green, textSettings.blue, textSettings.alpha));
+	temp.text.setCharacterSize(textSettings.size);
+
+	if (textSettings.properties != 0)
+	{
+		temp.textProperties = textSettings.properties;
+		int sfmlProp = 0;
+		sfmlProp = textSettings.properties & SG::TextProperties::TEXT_BOLD ? sfmlProp | sf::Text::Bold : sfmlProp;
+		sfmlProp = textSettings.properties & SG::TextProperties::TEXT_ITALIC ? sfmlProp | sf::Text::Italic : sfmlProp;
+		sfmlProp = textSettings.properties & SG::TextProperties::TEXT_UNDERLINED ? sfmlProp | sf::Text::Underlined : sfmlProp;
+		if (textSettings.properties & SG::TextProperties::TEXT_CENTERED)
+			temp.text.setOrigin(temp.text.getLocalBounds().left + temp.text.getLocalBounds().width / 2.0f, temp.text.getLocalBounds().top + temp.text.getLocalBounds().height / 2.0f);
+
+		temp.text.setStyle(sfmlProp);
+	}
+
+	int index = objects.AddToBack(temp);
+	AddComponentToEntity(ent, index);
+
+}
+
 void SG::SGTextManager2DSFML::SetOffset(SGEntity2DHandle& ent, float xOffset, float yOffset)
 {
 	SGEntity2D* temp = nullptr;
