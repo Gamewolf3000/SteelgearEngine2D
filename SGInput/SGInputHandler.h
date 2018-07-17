@@ -3,16 +3,25 @@
 #include <vector>
 #include <unordered_map>
 #include "../SG2DUtility/Headers/SGMath.h"
+#include "../SGG2D/SGRenderer2D.h"
 
 typedef int SGInputType;
 
 namespace SG
 {
 
-	enum class AxisDirection
+	enum class ControllerAxis
 	{
-		X_AXIS,
-		Y_AXIS
+		AXIS_1,
+		AXIS_2,
+		AXIS_3,
+		AXIS_4,
+		AXIS_5,
+		AXIS_6,
+		AXIS_7,
+		AXIS_8,
+		AXIS_9,
+		AXIS_10
 	};
 
 	enum class InputStatus
@@ -82,11 +91,16 @@ namespace SG
 		BUTTON_8,
 		BUTTON_9,
 		BUTTON_10,
-
-		BUMPER_R_1,
-		BUMPER_R_2,
-		BUMPER_L_1,
-		BUMPER_L_2
+		BUTTON_11,
+		BUTTON_12,
+		BUTTON_13,
+		BUTTON_14,
+		BUTTON_15,
+		BUTTON_16,
+		BUTTON_17,
+		BUTTON_18,
+		BUTTON_19,
+		BUTTON_20,
 	};
 
 	class SGInputHandler
@@ -111,10 +125,11 @@ namespace SG
 		};
 
 		SGPoint currentMousePos;
+		float deadzoneLimit = 0.1f;
 
 		std::unordered_map<SGInputType, InputSource> sources;
 
-		virtual void UpdateMouseInput(SGRect& windowRect) = 0;
+		virtual void UpdateMouseInput(SGWindow& window) = 0;
 
 	public:
 
@@ -194,7 +209,7 @@ namespace SG
 			}
 		}
 
-		virtual void UpdateInput(SGRect& windowRect) = 0;
+		virtual void UpdateInput(SGWindow& window) = 0;
 
 		inline bool IsPressed(SGInputType identifier)
 		{
@@ -249,9 +264,12 @@ namespace SG
 			currentMousePos = pos;
 		}
 
-		inline virtual float GetControllerRightStickValue(unsigned short controllerNumber, AxisDirection dir) = 0;
+		void SetDeadzoneLimit(float value)
+		{
+			deadzoneLimit = value;
+		}
 
-		inline virtual float GetControllerLeftStickValue(unsigned short controllerNumber, AxisDirection dir) = 0;
+		inline virtual float GetControllerAxisValue(unsigned short controllerNumber, ControllerAxis axis) = 0;
 	};
 
 }

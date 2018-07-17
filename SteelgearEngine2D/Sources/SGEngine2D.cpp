@@ -47,7 +47,7 @@ SG::SGGuiElement SG::SGEngine2D::CreateGuiElement(SGScene2D* sceneToAddTo, SGGui
 	if (!(elementSettings.pipeline == SGGuid("")))
 		graphics->ShaderManager()->SetRenderPipelineOfEntity(ent, elementSettings.pipeline);
 
-	SGGuiElement temp(ent);
+	SGGuiElement temp(ent, graphics, scriptManager, inputHandler);
 
 	if(elementSettings.scriptPath.length() > 0)
 		temp.script = scriptManager->LoadScript(elementSettings.scriptPath.c_str());
@@ -56,6 +56,7 @@ SG::SGGuiElement SG::SGEngine2D::CreateGuiElement(SGScene2D* sceneToAddTo, SGGui
 	temp.updateFunctionName = elementSettings.updateFunctionName;
 	temp.textureNotSelected = elementSettings.textureNotSelected;
 	temp.textureSelected = elementSettings.textureSelected;
+	temp.checkForInput = elementSettings.checkForInput;
 
 	return temp;
 }

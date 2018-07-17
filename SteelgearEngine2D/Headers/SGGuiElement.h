@@ -4,6 +4,7 @@
 #include "../SGScripts/SGScriptManagerAS.h"
 #include "./../SG2DUtility/Headers/SGEntity2D.h"
 #include "../../SGG2D/SGRenderer2D.h"
+#include "../SGInput/SGInputHandler.h"
 
 namespace SG
 {
@@ -20,6 +21,7 @@ namespace SG
 		float ySize;
 		float xPos;
 		float yPos;
+		bool checkForInput;
 	};
 
 	class SGGuiElement
@@ -35,10 +37,18 @@ namespace SG
 		SG::SGScriptHandle script;
 		std::string updateFunctionName;
 		std::string selectedFunctionName;
+		bool checkForInput;
 
-		SGGuiElement(SG::SGEntity2DHandle& entToUse)
+		SGRenderer2D* renderer;
+		SGScriptManagerAS* scriptManager;
+		SGInputHandler* input;
+
+		SGGuiElement(SG::SGEntity2DHandle& entToUse, SGRenderer2D* renderer, SGScriptManagerAS* scriptManager, SGInputHandler* input)
 		{
 			ent = entToUse;
+			this->renderer = renderer;
+			this->scriptManager = scriptManager;
+			this->input = input;
 		}
 
 	public:
@@ -48,14 +58,32 @@ namespace SG
 		}
 
 		template<typename... ScriptArgs>
-		void Update(SG::SGRenderer2D* graphics, SG::SGScriptManagerAS* scriptManager, ScriptArgs&&... parameters)
+		void Update(ScriptArgs&&... parameters)
 		{
-			if (changed && textureSelected != SG::SGGuid(""))
+			if (checkForInput)
+			{
+				auto mousePos = input->GetMousePos();
+
+				if (renderer->ShapeManager()->GetShapeRect(ent).Overlaps(renderer->PixelToPosition(mousePos)))
+				{
+					SetSelected(true);
+				}
+				else
+				{
+					SetSelected(false);
+				}
+			}
+
+			if (changed && !(textureSelected == SG::SGGuid("")))
 			{
 				if (isCurrentlySelected)
-					graphics->TextureManager()->SetTexture(ent, textureSelected);
+				{
+					renderer->TextureManager()->SetTexture(ent, textureSelected);
+				}
 				else
-					graphics->TextureManager()->SetTexture(ent, textureNotSelected);
+				{
+					renderer->TextureManager()->SetTexture(ent, textureNotSelected);
+				}
 
 				changed = false;
 			}
@@ -74,7 +102,7 @@ namespace SG
 		}
 
 		template<typename... ScriptArgs>
-		void RunSelectionFunction(SG::SGScriptManagerAS* scriptManager, ScriptArgs&&... parameters)
+		void RunSelectionFunction(ScriptArgs&&... parameters)
 		{
 			if(selectedFunctionName.length() > 0)
 				scriptManager->ExecuteScript(script, selectedFunctionName.c_str(), parameters...);

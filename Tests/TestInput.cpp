@@ -53,8 +53,17 @@ SG::TestInput::TestInput(SG::SGEngine2D * toUse) : TestBase(toUse)
 	engine->Input()->AddSource(1);
 	engine->Input()->BindKey(1, SG::KeyboardInput::KEY_RIGHT);
 
+	engine->Input()->AddSource(0);
+	engine->Input()->BindButton(0, SG::ControllerInput::BUTTON_1, 0);
+	engine->Input()->AddSource(1);
+	engine->Input()->BindButton(1, SG::ControllerInput::BUTTON_2, 0);
+
 	ent = scene->GetEntityManager().CreateEntity();
+	textEnt = scene->GetEntityManager().CreateEntity();
 	engine->Graphics()->ShapeManager()->CreateRectangleShape(ent, 20, 20);
+	engine->Graphics()->TextManager()->LoadFont("C:/Windows/Fonts/consola.ttf", SG::SGGuid("ConsolasFont"));
+	engine->Graphics()->TextManager()->CreateText(textEnt, SG::SGGuid("ConsolasFont"), L"", 30);
+	engine->Transform()->SetPos(textEnt, -640.0f, -360.0f);
 }
 
 SG::TestInput::~TestInput()
@@ -66,16 +75,18 @@ SG::TestInput::~TestInput()
 void SG::TestInput::Update(float dt)
 {
 	static float totalMovement = 0;
-	auto windowRect = engine->Graphics()->GetWindowRect();
-	engine->Input()->UpdateInput(windowRect);
 
-	if (engine->Input()->IsDown(0))
-		totalMovement -= 100.0f * dt;
+	if (engine->Input()->IsDown(0) || engine->Input()->GetControllerAxisValue(0, SG::ControllerAxis::AXIS_1) > 0.0f)
+		totalMovement -= 1000.0f * dt;
 
-	if (engine->Input()->IsDown(1))
-		totalMovement += 100.0f * dt;
+	if (engine->Input()->IsDown(1) || engine->Input()->GetControllerAxisValue(0, SG::ControllerAxis::AXIS_1) < 0.0f)
+		totalMovement += 1000.0f * dt;
 
 	camera.xPos = totalMovement;
+
+	auto pixelCoords = engine->Input()->GetMousePos();
+	auto worldCoords = engine->Graphics()->PixelToPosition(pixelCoords);
+	engine->Graphics()->TextManager()->SetText(textEnt, std::wstring(L"Mouse pos in pixels: (X = ") + std::to_wstring(pixelCoords.xPos) + std::wstring(L" | Y = ") + std::to_wstring(pixelCoords.yPos) + std::wstring(L")\nMouse pos translated to world pos: (X = ") + std::to_wstring(worldCoords.xPos) + std::wstring(L" | Y = ") + std::to_wstring(worldCoords.yPos) + std::wstring(L")"));
 
 	auto renderJob = engine->Graphics()->CreateGraphicsJob(SG::SGGuid("render"), engine->Graphics(), &SG::SGRenderer2D::RenderScene, scene->GetSceneEntities(), camera, viewPort);
 	cmdBuffer->SetGraphicsJob(renderJob);

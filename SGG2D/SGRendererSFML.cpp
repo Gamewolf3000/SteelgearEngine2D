@@ -161,13 +161,30 @@ void SG::SGRendererSFML::SetRenderTargetData(uint8_t * data)
 {
 }
 
-SG::SGRect SG::SGRendererSFML::GetWindowRect()
+SG::SGWindow SG::SGRendererSFML::GetWindow()
 {
-	SGRect toReturn;
-	toReturn.leftMost = window->getPosition().x;
-	toReturn.topMost = window->getPosition().y;
-	toReturn.width = window->getSize().x;
-	toReturn.height = window->getSize().y;
+	SGWindow toReturn;
+	toReturn.window = window;
+	return toReturn;
+}
+
+SG::SGPoint SG::SGRendererSFML::PixelToPosition(SGPoint& pixelToTranslate)
+{
+	auto pos = window->mapPixelToCoords(sf::Vector2i(int(pixelToTranslate.xPos), int(pixelToTranslate.yPos)));
+	SGPoint toReturn;
+	toReturn.xPos = pos.x;
+	toReturn.yPos = pos.y;
+
+	return toReturn;
+}
+
+SG::SGPoint SG::SGRendererSFML::PositionToPixel(SGPoint& pointToTranslate)
+{
+	auto pos = window->mapCoordsToPixel(sf::Vector2f(pointToTranslate.xPos, pointToTranslate.yPos));
+	SGPoint toReturn;
+	toReturn.xPos = pos.x;
+	toReturn.yPos = pos.y;
+
 	return toReturn;
 }
 

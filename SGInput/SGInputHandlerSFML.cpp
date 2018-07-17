@@ -55,17 +55,17 @@ SG::SGInputHandlerSFML::~SGInputHandlerSFML()
 
 }
 
-void SG::SGInputHandlerSFML::UpdateMouseInput(SGRect& windowRect)
+void SG::SGInputHandlerSFML::UpdateMouseInput(SGWindow& window)
 {
-	auto pos = sf::Mouse::getPosition();
-	currentMousePos.xPos = pos.x - windowRect.leftMost;
-	currentMousePos.yPos = pos.y - windowRect.topMost;
+	auto pos = sf::Mouse::getPosition(*(sf::Window*)window.window);
+	currentMousePos.xPos = pos.x;
+	currentMousePos.yPos = pos.y;
 
 }
 
-void SG::SGInputHandlerSFML::UpdateInput(SGRect& windowRect)
+void SG::SGInputHandlerSFML::UpdateInput(SGWindow& window)
 {
-	UpdateMouseInput(windowRect);
+	UpdateMouseInput(window);
 
 	for (auto& source : sources)
 	{
@@ -86,17 +86,32 @@ void SG::SGInputHandlerSFML::UpdateInput(SGRect& windowRect)
 			}
 		}
 
+		if (found == false)
+		{
+			for (int i = 0; i < source.second.mappedButtons.size(); i++)
+			{
+
+				if (sf::Joystick::isButtonPressed(source.second.mappedButtons[i].controllerNumber, int(source.second.mappedButtons[i].button)))
+				{
+					found = true;
+
+					if (source.second.inputStatus == InputStatus::UP)
+						source.second.inputStatus = InputStatus::PRESSED;
+					else
+						source.second.inputStatus = InputStatus::DOWN;
+
+					break;
+				}
+			}
+		}
+
 		if (!found)
 			source.second.inputStatus = InputStatus::UP;
 	}
 }
 
-float SG::SGInputHandlerSFML::GetControllerRightStickValue(unsigned short controllerNumber, AxisDirection dir)
+float SG::SGInputHandlerSFML::GetControllerAxisValue(unsigned short controllerNumber, ControllerAxis axis)
 {
-	return 0.0f;
-}
-
-float SG::SGInputHandlerSFML::GetControllerLeftStickValue(unsigned short controllerNumber, AxisDirection dir)
-{
-	return 0.0f;
+	float axisValue = sf::Joystick::getAxisPosition(controllerNumber, sf::Joystick::Axis(int(axis))) / 100.0f;
+	return abs(axisValue) >= deadzoneLimit ? axisValue : 0.0f;
 }

@@ -27,11 +27,23 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 	tests.push_back(new SG::TestInput(&engine));
 	tests.push_back(new SG::TestGuiElement(&engine));
 
-	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
+	engine.Input()->AddSource(1000);
+	engine.Input()->BindKey(1000, SG::KeyboardInput::KEY_ESC);
+
+	for (int i = 0; i < tests.size(); i++)
 	{
+		engine.Input()->AddSource(1001 + i);
+		engine.Input()->BindKey(1001 + i, (SG::KeyboardInput)(int(SG::KeyboardInput::KEY_0) + i));
+	}
+
+	while (engine.Input()->IsUp(1000))
+	{
+		auto windowRect = engine.Graphics()->GetWindow();
+		engine.Input()->UpdateInput(windowRect);
+
 		for (int i = 0; i < tests.size(); i++)
 		{
-			if ((GetKeyState('0' + i) & 0x8000))
+			if (engine.Input()->IsDown(1001 + i))
 				activeTest = i;
 		}
 

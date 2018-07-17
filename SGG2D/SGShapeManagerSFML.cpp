@@ -63,8 +63,8 @@ SG::SGRect SG::SGShapeManagerSFML::GetShapeRect(SGEntity2DHandle& ent)
 		auto shapeRect = objects[temp->components[int(componentType)]]->getLocalBounds();
 		SGRect toReturn;
 
-		toReturn.leftMost = shapeRect.left + temp->xPos;
-		toReturn.topMost = shapeRect.top + temp->yPos;
+		toReturn.leftMost = shapeRect.left + temp->xPos - shapeRect.width / 2.0f;
+		toReturn.topMost = shapeRect.top + temp->yPos - shapeRect.height / 2.0f;
 		toReturn.width = shapeRect.width;
 		toReturn.height = shapeRect.height;
 

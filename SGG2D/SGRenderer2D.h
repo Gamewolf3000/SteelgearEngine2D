@@ -14,6 +14,10 @@
 
 namespace SG
 {
+	struct SGWindow
+	{
+		void* window;
+	};
 
 	struct SGColour
 	{
@@ -147,7 +151,10 @@ namespace SG
 		virtual void Display() = 0;
 		virtual uint8_t* GetRenderTargetData() = 0;
 		virtual void SetRenderTargetData(uint8_t* data) = 0;
-		virtual SGRect GetWindowRect() = 0;
+		virtual SGWindow GetWindow() = 0;
+
+		virtual SGPoint PixelToPosition(SGPoint& pixelToTranslate) = 0;
+		virtual SGPoint PositionToPixel(SGPoint& pointToTranslate) = 0;
 
 		GraphicsJob CreateClearRenderTargetJob(SGGuid identifier, const SGColour& clearColour);
 		GraphicsJob CreateRenderSceneJob(SGGuid identifier, SGScene2D& scene, const SGCamera2D& camera, const SGViewPort2D& viewPort);

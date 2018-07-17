@@ -19,6 +19,7 @@ namespace SG
 		SG::SGCamera2D camera;
 		SG::SGViewPort2D viewPort;
 		SG::SGEntity2DHandle ent;
+		SG::SGEntity2DHandle textEnt;
 
 	public:
 		TestInput(SG::SGEngine2D* toUse);

@@ -4,16 +4,19 @@ void SG::SGTextureManager2DSFML::CleanUp()
 {
 	mutexLock.lock();
 
-	for (auto& index : toClean)
-	{
-		if (objects.GetReferenceCountOfElement(index) == 1)
-		{
-			delete objects[index].textureData;
-			objects[index].textureData = nullptr;
-		}
-		
-		objects.Remove(index);
-	}
+	// COMMENTED OUT FOR NOW!!! It works but if the last reference to a texture is removed then it will be deloaded and thus needed to be loaded later if someone wants it, this should
+	//be changed so that it is only removed if some type of max limit is reached, and support should be added to reload old textures, by storing the path perhaps and such?
+
+	//for (auto& index : toClean)
+	//{
+	//	if (objects.GetReferenceCountOfElement(index) == 1)
+	//	{
+	//		delete objects[index].textureData;
+	//		objects[index].textureData = nullptr;
+	//	}
+	//	
+	//	objects.Remove(index);
+	//}
 
 	toClean.clear();
 

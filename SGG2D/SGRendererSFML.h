@@ -30,7 +30,10 @@ namespace SG
 		void Display() override;
 		uint8_t* GetRenderTargetData() override;
 		void SetRenderTargetData(uint8_t* data) override;
-		SGRect GetWindowRect() override;
+		SGWindow GetWindow() override;
+
+		SGPoint PixelToPosition(SGPoint& pixelToTranslate) override;
+		SGPoint PositionToPixel(SGPoint& pointToTranslate) override;
 
 		SGMatrix4x4 GetProjectionMatrix(SGCamera2D& camera) override;
 	};

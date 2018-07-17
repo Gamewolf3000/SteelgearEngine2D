@@ -8,7 +8,7 @@ namespace SG
 	{
 	private:
 
-		void UpdateMouseInput(SGRect& windowRect) override;
+		void UpdateMouseInput(SGWindow& window) override;
 		std::vector<int> keyLookup;
 
 	public:
@@ -16,9 +16,8 @@ namespace SG
 		SGInputHandlerSFML();
 		~SGInputHandlerSFML();
 
-		void UpdateInput(SGRect& windowRect) override;
-		float GetControllerRightStickValue(unsigned short controllerNumber, AxisDirection dir) override;
-		float GetControllerLeftStickValue(unsigned short controllerNumber, AxisDirection dir) override;
+		void UpdateInput(SGWindow& window) override;
+		float GetControllerAxisValue(unsigned short controllerNumber, ControllerAxis axis) override;
 
 	};
 

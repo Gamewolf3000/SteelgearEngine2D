@@ -13,7 +13,9 @@ SG::TestGuiElement::TestGuiElement(SG::SGEngine2D * toUse) : TestBase(toUse)
 	auto clearJob = engine->Graphics()->CreateGraphicsJob(SG::SGGuid("clear"), engine->Graphics(), &SG::SGRenderer2D::ClearRenderTarget, SG::SGColour(0, 0, 255));
 	cmdBuffer->SetGraphicsJob(clearJob);
 	auto textureString = std::string("C:/Users/Joakim/Pictures/Brock_Stadium.png");
+	auto textureString2 = std::string("C:/Users/Joakim/Pictures/rival.png");
 	engine->Graphics()->TextureManager()->LoadTexture(textureString);
+	engine->Graphics()->TextureManager()->LoadTexture(textureString2);
 	engine->Graphics()->ShaderManager()->UpdateGlobalData(SG::SGGuid("ProjectionMatrix"), engine->Graphics()->GetProjectionMatrix(camera));
 
 	camera.xPos = 0;
@@ -48,13 +50,14 @@ SG::TestGuiElement::TestGuiElement(SG::SGEngine2D * toUse) : TestBase(toUse)
 	guiSettings.scriptPath;
 	guiSettings.selectedFunctionName;
 	guiSettings.text;
-	guiSettings.textureSelected;
+	guiSettings.textureSelected = SGGuid("C:/Users/Joakim/Pictures/rival.png");;
 	guiSettings.textureNotSelected = SGGuid("C:/Users/Joakim/Pictures/Brock_Stadium.png");
 	guiSettings.updateFunctionName;
-	guiSettings.xPos = 10;
-	guiSettings.yPos = 10;
+	guiSettings.xPos = 100;
+	guiSettings.yPos = 100;
 	guiSettings.xSize = 100;
 	guiSettings.ySize = 100;
+	guiSettings.checkForInput = true;
 
 	button = engine->CreateGuiElement(scene, guiSettings);
 
@@ -72,17 +75,16 @@ SG::TestGuiElement::~TestGuiElement()
 
 void SG::TestGuiElement::Update(float dt)
 {
-	auto windowRect = engine->Graphics()->GetWindowRect();
-	engine->Input()->UpdateInput(windowRect);
+	button.Update();
 
-	if (engine->Graphics()->ShapeManager()->GetShapeRect(button.GetEntity()).Overlaps(engine->Input()->GetMousePos()))
-	{
-		button.SetSelected(true);
-	}
-	else
-	{
-		button.SetSelected(false);
-	}
+	//if (engine->Graphics()->ShapeManager()->GetShapeRect(button.GetEntity()).Overlaps(engine->Input()->GetMousePos()))
+	//{
+	//	button.SetSelected(true);
+	//}
+	//else
+	//{
+	//	button.SetSelected(false);
+	//}
 
 	auto renderJob = engine->Graphics()->CreateGraphicsJob(SG::SGGuid("render"), engine->Graphics(), &SG::SGRenderer2D::RenderScene, scene->GetSceneEntities(), camera, viewPort);
 	cmdBuffer->SetGraphicsJob(renderJob);
