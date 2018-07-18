@@ -126,18 +126,19 @@ void SG::TestBasic::Update(float dt)
 	static int counter = 0;
 	static int superCounter = 0;
 	static float movement = 0.0f;
+	static float combinedDTS = 0.0f;
 
 	engine->Transform()->Move(entHandles[0], 0 * dir, 0.0 * dir);
-	engine->Transform()->Rotate(entHandles[0], 0.001);
-	engine->Transform()->Rotate(entHandles[1], 0.001);
-	engine->Transform()->Rotate(entHandles[2], 0.001);
+	engine->Transform()->Rotate(entHandles[0], dt);
+	engine->Transform()->Rotate(entHandles[1], dt);
+	engine->Transform()->Rotate(entHandles[2], dt);
 
 	movement += 0.1;
 	//camera.xPos = movement;
-	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[1], (superCounter % 501) / 500.0f);
-	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[2], (superCounter % 1001) / 1000.0f);
-	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[3], (superCounter % 1501) / 1500.0f);
-	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[4], (superCounter % 2001) / 2000.0f);
+	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[1], (superCounter % 51) / 50.0f);
+	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[2], (superCounter % 101) / 100.0f);
+	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[3], (superCounter % 151) / 150.0f);
+	engine->Graphics()->ShaderManager()->UpdatePrivateData(SG::SGGuid("gradient"), entHandles[4], (superCounter % 201) / 200.0f);
 
 
 	viewPort.top = 0.0f;
@@ -158,7 +159,13 @@ void SG::TestBasic::Update(float dt)
 	cmdBuffer->SetGraphicsJob(renderJob4);
 
 	counter++;
-	superCounter++;
+
+	combinedDTS += dt;
+	if (combinedDTS >= 0.1f)
+	{
+		superCounter++;
+		combinedDTS -= 0.1f;
+	}
 
 	if (counter == 500)
 	{

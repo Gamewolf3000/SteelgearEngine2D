@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GameTest">
+      <UniqueIdentifier>{ba37a684-db60-42f7-be87-110c8067b840}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -32,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="TestInput.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGame.cpp">
+      <Filter>GameTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>GameTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +62,18 @@
     <ClInclude Include="TestInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestGame.h">
+      <Filter>GameTest</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUnit.h">
+      <Filter>GameTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>GameTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>GameTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestScript.as">
@@ -60,6 +81,12 @@
     </None>
     <None Include="TestGuiScript.as">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="TestResources\PlayerScript.as">
+      <Filter>GameTest</Filter>
+    </None>
+    <None Include="TestResources\Enemy1Script.as">
+      <Filter>GameTest</Filter>
     </None>
   </ItemGroup>
 </Project>

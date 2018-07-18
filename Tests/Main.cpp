@@ -7,6 +7,7 @@
 #include "TestScript.h"
 #include "TestInput.h"
 #include "TestGuiElement.h"
+#include "TestGame.h"
 
 int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -19,13 +20,17 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 
 	unsigned int nrOfFrames = 0;
 	std::vector<SG::TestBase*> tests;
-	int activeTest = 3;
+	int activeTest = 5;
+	float dt = 0.0f;
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point end;
 
 	tests.push_back(new SG::TestBasic(&engine));
 	tests.push_back(new SG::TestSpawner(&engine));
 	tests.push_back(new SG::TestScript(&engine));
 	tests.push_back(new SG::TestInput(&engine));
 	tests.push_back(new SG::TestGuiElement(&engine));
+	tests.push_back(new SG::TestGame(&engine));
 
 	engine.Input()->AddSource(1000);
 	engine.Input()->BindKey(1000, SG::KeyboardInput::KEY_ESC);
@@ -38,6 +43,7 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 
 	while (engine.Input()->IsUp(1000))
 	{
+		start = std::chrono::steady_clock::now();
 		auto windowRect = engine.Graphics()->GetWindow();
 		engine.Input()->UpdateInput(windowRect);
 
@@ -47,10 +53,13 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _I
 				activeTest = i;
 		}
 
-		tests[activeTest]->Update(0.0001f);
+		tests[activeTest]->Update(dt);
 		tests[activeTest]->Render();
 
 		nrOfFrames++;
+		end = std::chrono::steady_clock::now();
+		auto nrOfUnits = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+		dt = nrOfUnits / 1000000000.0f;
 	}
 
 	for (auto& test : tests)

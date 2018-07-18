@@ -232,6 +232,18 @@ void SG::SGTransformManager2D::RemoveAllParents(SGEntity2DHandle & ent)
 	objects[temp->components[int(componentType)]].parents.clear();
 }
 
+SG::SGPoint SG::SGTransformManager2D::GetPos(SG::SGEntity2DHandle& ent)
+{
+	SGEntity2D* temp = nullptr;
+	eventHandler->TriggerEvent(SG::BackEndEvent::GET_ENTITY, &temp, &ent);
+
+	SGPoint toReturn;
+	toReturn.xPos = temp->xPos;
+	toReturn.yPos = temp->yPos;
+
+	return toReturn;
+}
+
 void SG::SGTransformManager2D::Remove(SGEntity2DHandle* ent)
 {
 	SGEntity2D* temp = nullptr;

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../SG2DUtility/Headers/SGManager.h"
+#include "../SG2DUtility/Headers/SGManager.h"
+#include "../SG2DUtility/Headers/SGMath.h"
 
 namespace SG
 {
@@ -35,6 +36,8 @@ namespace SG
 		void RemoveChild(SGEntity2DHandle& parent, SGEntity2DHandle& child);
 		void RemoveAllChildren(SGEntity2DHandle& ent);
 		void RemoveAllParents(SGEntity2DHandle& ent);
+
+		SGPoint GetPos(SGEntity2DHandle& ent);
 
 		void Remove(SGEntity2DHandle* ent) override;
 	};

@@ -26,6 +26,13 @@ namespace SG
 	{
 		float xPos;
 		float yPos;
+
+		SGPoint& operator=(const SGPoint& other)
+		{
+			this->xPos = other.xPos;
+			this->yPos = other.yPos;
+			return *this;
+		}
 	};
 
 	struct SGRect

@@ -193,7 +193,8 @@ namespace SG
 		template <typename ReturnType, typename... Args>
 		inline void ExposeFunction(ReturnType(ptr)(Args...), const char* declaration)
 		{
-			this->engine->RegisterGlobalFunction(declaration, asFUNCTIONPR(ptr, (Args...), ReturnType), asCALL_CDECL);
+			auto error = this->engine->RegisterGlobalFunction(declaration, asFUNCTIONPR(ptr, (Args...), ReturnType), asCALL_CDECL);
+			_ASSERT(error >= 0);
 		}
 
 		template<class objectClass>
@@ -204,9 +205,12 @@ namespace SG
 				return;
 			}
 
-			this->engine->RegisterObjectType(className, sizeof(objectClass), asOBJ_VALUE | asGetTypeTraits<objectClass>());
-			this->engine->RegisterObjectBehaviour(className, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(ScriptManager::Constructor<objectClass>), asCALL_CDECL_OBJLAST);
-			this->engine->RegisterObjectBehaviour(className, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ScriptManager::Destructor<objectClass>), asCALL_CDECL_OBJLAST);
+			auto error = this->engine->RegisterObjectType(className, sizeof(objectClass), asOBJ_VALUE | asGetTypeTraits<objectClass>());
+			_ASSERT(error >= 0);
+			error = this->engine->RegisterObjectBehaviour(className, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(Constructor<objectClass>), asCALL_CDECL_OBJLAST);
+			_ASSERT(error >= 0);
+			error = this->engine->RegisterObjectBehaviour(className, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destructor<objectClass>), asCALL_CDECL_OBJLAST);
+			_ASSERT(error >= 0);
 
 			exposedClassTypes[std::string(className)] = true;
 		}
@@ -219,7 +223,8 @@ namespace SG
 				return;
 			}
 
-			this->engine->RegisterGlobalProperty(objectDeclaration, object);
+			auto error = this->engine->RegisterGlobalProperty(objectDeclaration, object);
+			_ASSERT(error >= 0);
 
 			exposedClassObjects[std::string(objectDeclaration)] = true;
 		}
@@ -230,20 +235,22 @@ namespace SG
 			asSFuncPtr p(3);
 			p.CopyMethodPtr(&ptr, SINGLE_PTR_SIZE);
 
-			this->engine->RegisterObjectMethod(className, functionDeclaration, p, asCALL_THISCALL);
+			auto error = this->engine->RegisterObjectMethod(className, functionDeclaration, p, asCALL_THISCALL);
+			_ASSERT(error >= 0);
+		}
+
+		inline void ExposeObjectProperty(const char* className, const char* propertyDeclaration, int offset)
+		{
+			auto error = engine->RegisterObjectProperty(className, propertyDeclaration, offset);
+			_ASSERT(error >= 0);
 		}
 
 		template <class... Args>
-		void for_each_argument(Args&&... args) {
+		void for_each_argument(Args&&... args)
+		{
 			int i = 0;
 			int _[] = { (SetParameter(std::forward<Args>(args), i++),0)... };
 		}
-
-		//template <typename... Args>
-		//inline void SetParameters(Args... parameters)
-		//{
-		//	for_each_argument(parameters...);
-		//}
 
 		template <typename... Args>
 		void ExecuteScript(SGScriptHandle& script, const char* functionDeclaration, Args&&... parameters)
@@ -271,7 +278,8 @@ namespace SG
 				if (error == asEXECUTION_EXCEPTION)
 				{
 					// An exception occurred, let the script writer know what happened so it can be corrected.
-					throw((std::string("An exception ") + std::string(ctx->GetExceptionString()) + std::string(" has occurred!")).c_str());
+					std::string exception = std::string(ctx->GetExceptionString());
+					throw((std::string("An exception ") + exception + std::string(" has occurred!")).c_str());
 				}
 
 				throw("An error occured while executing the script");
