@@ -1,25 +1,25 @@
 
 Total count
-PshGPtr    : 119046
-PshC4      : 116771
-PshV4      : 69153
-PSF        : 214281
-RET        : 47620
-JMP        : 23269
-JNP        : 47618
-PshVPtr    : 92965
-CMPf       : 47618
+PshGPtr    : 37666
+PshC4      : 32998
+PshV4      : 17932
+PSF        : 67797
+RET        : 15068
+JMP        : 7550
+JNP        : 15066
+PshVPtr    : 25468
+CMPf       : 15066
 PopRPtr    : 2
-CALLSYS    : 354863
-SUSPEND    : 307248
-GETREF     : 23809
+CALLSYS    : 108330
+SUSPEND    : 93267
+GETREF     : 7533
 WRTV4      : 1
-RDR4       : 95237
+RDR4       : 30133
 PGA        : 2
-VAR        : 23809
-MULIf      : 69153
-LoadVObjR  : 95236
-JLowZ      : 95236
+VAR        : 7533
+MULIf      : 17932
+LoadVObjR  : 30132
+JLowZ      : 30132
 
 Never executed
 PopPtr    
@@ -205,50 +205,50 @@ POWu64
 Thiscall1 
 
 Sequences
-PshGPtr   , CALLSYS    : 119046
-PshC4     , PshGPtr    : 95236
-PshC4     , PshVPtr    : 8981
-PshC4     , MULIf      : 12554
-PshV4     , PshC4      : 8981
-PshV4     , PshV4      : 23809
-PshV4     , PshVPtr    : 36363
-PSF       , PshGPtr    : 23809
-PSF       , PshVPtr    : 47618
-PSF       , CALLSYS    : 119045
-PSF       , GETREF     : 23809
-RET       , SUSPEND    : 47619
-JMP       , SUSPEND    : 23269
-JNP       , SUSPEND    : 47618
+PshGPtr   , CALLSYS    : 37666
+PshC4     , PshGPtr    : 30132
+PshC4     , PshVPtr    : 1021
+PshC4     , MULIf      : 1845
+PshV4     , PshC4      : 1021
+PshV4     , PshV4      : 7533
+PshV4     , PshVPtr    : 9378
+PSF       , PshGPtr    : 7533
+PSF       , PshVPtr    : 15066
+PSF       , CALLSYS    : 37665
+PSF       , GETREF     : 7533
+RET       , SUSPEND    : 15067
+JMP       , SUSPEND    : 7550
+JNP       , SUSPEND    : 15066
 PshVPtr   , PopRPtr    : 2
-PshVPtr   , CALLSYS    : 92963
-CMPf      , JNP        : 47618
+PshVPtr   , CALLSYS    : 25466
+CMPf      , JNP        : 15066
 PopRPtr   , WRTV4      : 1
 PopRPtr   , RDR4       : 1
-CALLSYS   , PSF        : 47618
-CALLSYS   , RET        : 23809
-CALLSYS   , CMPf       : 47618
-CALLSYS   , SUSPEND    : 69155
-CALLSYS   , VAR        : 23809
-CALLSYS   , LoadVObjR  : 47618
-CALLSYS   , JLowZ      : 95236
-SUSPEND   , PshC4      : 107790
-SUSPEND   , PshV4      : 23809
-SUSPEND   , PSF        : 47618
-SUSPEND   , RET        : 23811
+CALLSYS   , PSF        : 15066
+CALLSYS   , RET        : 7533
+CALLSYS   , CMPf       : 15066
+CALLSYS   , SUSPEND    : 17934
+CALLSYS   , VAR        : 7533
+CALLSYS   , LoadVObjR  : 15066
+CALLSYS   , JLowZ      : 30132
+SUSPEND   , PshC4      : 31977
+SUSPEND   , PshV4      : 7533
+SUSPEND   , PSF        : 15066
+SUSPEND   , RET        : 7535
 SUSPEND   , PshVPtr    : 1
 SUSPEND   , PGA        : 2
-SUSPEND   , MULIf      : 56599
-SUSPEND   , LoadVObjR  : 47618
-GETREF    , CALLSYS    : 23809
+SUSPEND   , MULIf      : 16087
+SUSPEND   , LoadVObjR  : 15066
+GETREF    , CALLSYS    : 7533
 WRTV4     , SUSPEND    : 1
-RDR4      , PSF        : 95236
+RDR4      , PSF        : 30132
 RDR4      , PshVPtr    : 1
 PGA       , PshGPtr    : 1
 PGA       , PshVPtr    : 1
-VAR       , PSF        : 23809
-MULIf     , PshV4      : 21535
-MULIf     , JMP        : 23269
-MULIf     , SUSPEND    : 24349
-LoadVObjR , RDR4       : 95236
-JLowZ     , SUSPEND    : 95236
+VAR       , PSF        : 7533
+MULIf     , PshV4      : 2866
+MULIf     , JMP        : 7550
+MULIf     , SUSPEND    : 7516
+LoadVObjR , RDR4       : 30132
+JLowZ     , SUSPEND    : 30132
 LABEL     , SUSPEND    : 1

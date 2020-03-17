@@ -55,7 +55,7 @@ void SG::TestGame::SetupGraphics()
 	shaderBinding[2].nameOnShader = "texture";
 	shaderSource[2] = SG::ShaderDataSourceType::HANDLER;
 
-	engine->Graphics()->ShaderManager()->CreateRenderPipeline(SG::SGGuid("TestGamePipeline"), shaderBinding, shaderSource, 3, "E:/VS Projects/SteelGearGraphics2D/BlastOff/Shaders/vsTest.txt", "", "E:/VS Projects/SteelGearGraphics2D/BlastOff/Shaders/psTest.txt");
+	engine->Graphics()->ShaderManager()->CreateRenderPipeline(SG::SGGuid("TestGamePipeline"), shaderBinding, shaderSource, 3, "E:/VS Projects/SteelGearEngine2D/Tests/TestResources/vsTest.vs", "", "E:/VS Projects/SteelGearEngine2D/Tests/TestResources/psTest.txt");
 
 	auto renderJob = engine->Graphics()->CreateGraphicsJob(SG::SGGuid("render"), engine->Graphics(), &SG::SGRenderer2D::RenderScene, scene->GetSceneEntities(), camera, viewPort);
 	cmdBuffer->SetGraphicsJob(renderJob);

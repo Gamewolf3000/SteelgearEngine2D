@@ -17,7 +17,7 @@ Variables:
     0   8 *    SUSPEND
                VarDecl  2
     1   8 *    PSF      v4
-    2  10 *    PshGPtr  0x17249973f60          (i:1590372548448, f:7.85748e-312)
+    2  10 *    PshGPtr  0x2b41fb9c520          (i:2972649637152, f:1.46868e-311)
     5  12 *    CALLSYS  78           (SGPoint GameUnit::GetPosition())
                ObjInfo  v4, 1
     7   8 *    VAR      v4
@@ -50,14 +50,14 @@ Variables:
 - 9,3 -
             {
    38   8 *    SUSPEND
-   39   8 *    MULIf    v5, v0, 500.000000
+   39   8 *    MULIf    v5, v0, 250.000000
             }
    42   8 *    JMP      +4              (d:48)
 - 13,3 -
             1:
             {
    44   8 *    SUSPEND
-   45   8 *    MULIf    v5, v0, -500.000000
+   45   8 *    MULIf    v5, v0, -250.000000
 - 16,2 -
             }
             2:
@@ -78,14 +78,14 @@ Variables:
 - 18,3 -
             {
    68   8 *    SUSPEND
-   69   8 *    MULIf    v6, v0, 500.000000
+   69   8 *    MULIf    v6, v0, 250.000000
             }
    72   8 *    JMP      +4              (d:78)
 - 22,3 -
             3:
             {
    74   8 *    SUSPEND
-   75   8 *    MULIf    v6, v0, -500.000000
+   75   8 *    MULIf    v6, v0, -250.000000
 - 25,2 -
             }
             4:
